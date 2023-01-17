@@ -18,6 +18,7 @@ import io.restassured.response.ResponseOptions;
 import utilities.RestAssuredExtension;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -68,4 +69,19 @@ public class GetPostSteps {
     public void iShouldVerifyQueryParams() {
     }
 
+    @And("^I perform GET operation with path parameter from \"([^\"]*)\"$")
+    public void iPerformGETOperationWithPathParameterFrom(String url,DataTable table) throws Throwable {
+        var data = table.raw();
+        Map<String, String> pathParams = new HashMap<String, String>();
+        pathParams.put("postid", data.get(1).get(0));
+        response = RestAssuredExtension.GetWithPathParams(url, pathParams);
+    }
+
+    @And("^I perform GET operation for \"([^\"]*)\"$")
+    public void iPerformGETOperationFor(String url,DataTable table) throws Throwable {
+        var data = table.raw();
+        Map<String, String> pathParams = new HashMap<String, String>();
+        pathParams.put("postid", data.get(1).get(0));
+        response = RestAssuredExtension.GetWithPathParams(url, pathParams);
+    }
 }
